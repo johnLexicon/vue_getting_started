@@ -8,12 +8,24 @@
         <header class="card-header">
           <p class="card-header-title">heroes list</p>
         </header>
+        <ul class="list is-hoverable">
+          <li v-for="hero in heroes" :key="hero.id">
+            <a
+              @click="selectedHero = hero"
+              class="list-item"
+              :class="{ 'is-active': hero === selectedHero }"
+              ><span>{{ hero.firstName }}</span></a
+            >
+          </li>
+        </ul>
       </div>
     </div>
-    <div class="columns">
+    <div v-if="selectedHero" class="columns">
       <div class="column is-3">
         <header class="card-header">
-          <p class="card-header-title">{{ selectedHero.firstName }}</p>
+          <p class="card-header-title">
+            {{ selectedHero.firstName }}
+          </p>
         </header>
         <div class="card-content">
           <div class="content">
@@ -59,12 +71,7 @@ export default {
   name: 'Heroes',
   data() {
     return {
-      selectedHero: {
-        id: 111,
-        firstName: '...',
-        lastName: '...',
-        description: '...',
-      },
+      selectedHero: undefined,
       heroes: [
         {
           id: 10,
